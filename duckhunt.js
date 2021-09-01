@@ -37239,7 +37239,7 @@ var Game = function () {
     this.renderer = (0, _pixi.autoDetectRenderer)(window.innerWidth, window.innerHeight, {
       backgroundColor: BLUE_SKY_COLOR
     });
-    this.levelIndex = 6;
+    this.levelIndex = 0;
     this.maxScore = 0;
     this.timePaused = 0;
     this.muted = false;
@@ -37247,6 +37247,7 @@ var Game = function () {
     this.activeSounds = [];
     this.db = null;
     this.scoreRef = null;
+    this.dbScore = 0;
 
     this.waveEnding = false;
     this.quackingSoundId = null;
@@ -37283,7 +37284,19 @@ var Game = function () {
       firebase = firebase.initializeApp(firebaseConfig);
       this.db = firebase.database();
 
-      this.scoreRef = this.db.ref(localStorage.getItem("walletaddress")).push();
+      this.scoreRef = this.db.ref(localStorage.getItem("walletaddress"));
+
+      this.scoreRef.child("score").get().then((snapshot) => {
+        if(snapshot.exists()){
+          this.dbScore = snapshot.val();
+        }else{
+          this.scoreRef.set({
+            nickname: localStorage.getItem("nickname"),
+            wallet: localStorage.getItem("walletaddress"),
+            score: this.score
+          });
+        }
+      });
 
       this.scaleToWindow();
       this.addLinkToLevelCreator();
@@ -37471,12 +37484,10 @@ var Game = function () {
 
       this.gameStatus = this.level.title;
       
-      this.scoreRef.set({
-        nickname: localStorage.getItem("nickname"),
-        wallet: localStorage.getItem("walletaddress"),
-        score: this.score
-      });
-
+      if(this.score > this.dbScore){
+        this.scoreRef.child("score").set(this.score);
+      }
+      
       this.stage.preLevelAnimation().then(function () {
         _this3.gameStatus = '';
         _this3.startWave();
@@ -37925,7 +37936,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 document.addEventListener('DOMContentLoaded', function () {
 
   var game = new _Game2.default({
-    spritesheet: 'sprites.json'
+    spritesheet: 'https://raw.githubusercontent.com/Duckhunttoken/duckhunt/main/sprites.json'
   }).load();
 }, false);
 
@@ -48892,7 +48903,7 @@ const TweenMaxBase = TweenMax;
 /* 324 */
 /***/ (function(module, exports) {
 
-module.exports = {"src":["audio.ogg","audio.mp3"],"sprite":{"barkDucks":[0,2403.265306122449],"champ":[4000,9639.183673469388],"gunSound":[15000,504.01360544217687],"laugh":[17000,1368.0045351473923],"loserSound":[20000,3631.0204081632664],"ohYeah":[25000,1071.020408163264],"quacking":[28000,6817.959183673466,true],"quak":[36000,783.6734693877575],"sniff":[38000,1985.306122448982,true],"thud":[41000,548.571428571428]}}
+module.exports = {"src":["https://raw.githubusercontent.com/Duckhunttoken/duckhunt/main/audio.ogg","audio.mp3"],"sprite":{"barkDucks":[0,2403.265306122449],"champ":[4000,9639.183673469388],"gunSound":[15000,504.01360544217687],"laugh":[17000,1368.0045351473923],"loserSound":[20000,3631.0204081632664],"ohYeah":[25000,1071.020408163264],"quacking":[28000,6817.959183673466,true],"quak":[36000,783.6734693877575],"sniff":[38000,1985.306122448982,true],"thud":[41000,548.571428571428]}}
 
 /***/ }),
 /* 325 */
