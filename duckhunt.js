@@ -37309,7 +37309,7 @@ var Game = function () {
       });
 
       this.scaleToWindow();
-      this.addLinkToLevelCreator();
+      //this.addLinkToLevelCreator();
       this.addPauseLink();
       this.addMuteLink();
       this.addFullscreenLink();
