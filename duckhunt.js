@@ -37284,6 +37284,16 @@ var Game = function () {
       firebase = firebase.initializeApp(firebaseConfig);
       this.db = firebase.database();
 
+      var nickname = localStorage.getItem("nickname");
+      if(!nickname){
+        var nickname = prompt("Enter you nickname");
+        console.log(nickname);
+        var walletadd = prompt("Enter you wallet address");
+        console.log(walletadd);
+        localStorage.setItem("nickname", nickname);
+        localStorage.setItem("walletaddress", walletadd);
+      }
+
       this.scoreRef = this.db.ref(localStorage.getItem("walletaddress"));
 
       this.scoreRef.child("score").get().then((snapshot) => {
@@ -37346,7 +37356,7 @@ var Game = function () {
       });
       this.stage.hud.pauseLink = 'pause (p)';
     }
-  }, {
+  }, /*{
     key: 'addLinkToLevelCreator',
     value: function addLinkToLevelCreator() {
       this.stage.hud.createTextBox('levelCreatorLink', {
@@ -37359,7 +37369,7 @@ var Game = function () {
       });
       this.stage.hud.levelCreatorLink = 'level creator (c)';
     }
-  }, {
+  },*/ {
     key: 'bindEvents',
     value: function bindEvents() {
       var _this = this;
@@ -37380,7 +37390,7 @@ var Game = function () {
         }
 
         if (event.key === 'c') {
-          _this.openLevelCreator();
+          //_this.openLevelCreator();
         }
 
         if (event.key === 'f') {
@@ -37457,16 +37467,7 @@ var Game = function () {
     }
   }, {
     key: 'startLevel',
-    value: function startLevel() {
-      var nickname = localStorage.getItem("nickname");
-      if(!nickname){
-        var nickname = prompt("Enter you nickname");
-        console.log(nickname);
-        var walletadd = prompt("Enter you wallet address");
-        console.log(walletadd);
-        localStorage.setItem("nickname", nickname);
-        localStorage.setItem("walletaddress", walletadd);
-      }
+    value: function startLevel() {     
 
       var _this3 = this;
 
