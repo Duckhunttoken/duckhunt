@@ -37252,7 +37252,7 @@ var Game = function () {
     this.waveEnding = false;
     this.quackingSoundId = null;
     this.levels = _levels2.default.normal;
-    console.log(this.levels)
+    
     return this;
   }
 
@@ -37271,7 +37271,7 @@ var Game = function () {
       });
 
       const firebaseConfig = {
-        apiKey: "AIzaSyCWdNzbTaLhg0L8g1SzjrMxbnNqHHLhJ2c",
+        apiKey: "AIzaSyDLR_lFdRTbsK_ancn2h8Orxg5zuVgkeAw",
         authDomain: "dogecakes-b6be3.firebaseapp.com",
         databaseURL: "https://dogecakes-b6be3-default-rtdb.firebaseio.com",
         projectId: "dogecakes-b6be3",
