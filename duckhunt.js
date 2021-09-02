@@ -37485,10 +37485,6 @@ var Game = function () {
 
       this.gameStatus = this.level.title;
       
-      if(this.score > this.dbScore){
-        this.scoreRef.child("score").set(this.score);
-      }
-      
       this.stage.preLevelAnimation().then(function () {
         _this3.gameStatus = '';
         _this3.startWave();
@@ -37512,6 +37508,9 @@ var Game = function () {
       this.waveEnding = true;
       this.bullets = 0;
       _Sound2.default.stop(this.quackingSoundId);
+      if(this.score > this.dbScore){
+        this.scoreRef.child("score").set(this.score);
+      }
       if (this.stage.ducksAlive()) {
         this.ducksMissed += this.level.ducks - this.ducksShotThisWave;
         this.renderer.backgroundColor = PINK_SKY_COLOR;
@@ -37519,7 +37518,7 @@ var Game = function () {
       } else {
         this.stage.cleanUpDucks();
         this.goToNextWave();
-      }
+      }      
     }
   }, {
     key: 'goToNextWave',
